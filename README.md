@@ -33,8 +33,9 @@ The `LocationInput` component provides a search box with built-in autocomplete l
 
 ```tsx
 import { LocationInput, LocationIQSDK } from '@octacon/locationiq';
-import '@octacon/locationiq/dist/style.css'; // Optional: import default styles
+import '@octacon/locationiq/dist/locationiq.css'; // Optional: import default styles
 
+// Initialize the SDK
 const sdk = new LocationIQSDK('YOUR_LOCATIONIQ_API_KEY');
 
 function App() {
@@ -55,9 +56,9 @@ function App() {
 }
 ```
 
-### 3. Usage in any JavaScript/TypeScript environment (Vue, Angular, Node.js)
+### 3. Usage in any environment (Vue, Angular, Node.js)
 
-You can use the `LocationIQSDK` class independently of React.
+You can use the `LocationIQSDK` class independently of any UI framework.
 
 ```typescript
 import { LocationIQSDK } from '@octacon/locationiq';
@@ -99,10 +100,12 @@ const route = await sdk.directions([
 | `onSelect` | Callback on selection | `(result) => void` |
 | `placeholder`| Input placeholder | `string` (optional) |
 
-## Dependencies
+## Peer Dependencies
 
-- **Direct**: `axios`
-- **Peer**: `react`, `react-dom`, `framer-motion`, `lucide-react`
+To keep the package lightweight, the following are required as peer dependencies in your project:
+- `react` & `react-dom` (>= 18.0.0)
+- `framer-motion` (>= 12.0.0)
+- `lucide-react` (>= 0.400.0)
 
 ## License
 
