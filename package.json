@@ -1,39 +1,47 @@
 {
-  "name": "@octacondeveloper/locationiq",
-  "version": "3.1.1",
-  "description": "Pure, lightweight LocationIQ Places API client for Node.js and browsers",
-  "type": "module",
-  "engines": {
-    "node": ">=24.0.0"
-  },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    }
-  },
+  "name": "@octacondeveloper/locationiq-react",
+  "version": "1.0.0",
+  "description": "A comprehensive React component package for LocationIQ APIs",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "files": [
-    "dist"
+    "lib"
   ],
-  "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
-    "dev": "tsup src/index.ts --format cjs,esm --watch --dts",
-    "lint": "eslint src/**",
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "engines": {
+    "node": ">=24.0.0",
+    "npm": ">=10.0.0"
   },
-  "dependencies": {
-    "axios": "^1.13.2"
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "eslint src/**/*.{ts,tsx}",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "locationiq",
+    "geocoding",
+    "maps",
+    "routing",
+    "react",
+    "location",
+    "api"
+  ],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
-    "tsup": "^8.3.5",
-    "typescript": "^5.7.3",
-    "@types/node": "^24.10.1",
-    "eslint": "^9.39.1",
-    "@eslint/js": "^9.39.1",
-    "globals": "^16.5.0"
+    "@types/node": "^22.0.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.15.0",
+    "typescript": "^5.4.0"
+  },
+  "dependencies": {
+    "axios": "^1.7.0"
   }
 }
