@@ -168,15 +168,16 @@ export class LocationIQSDK {
         return response.data;
     }
 }
+import { LocationAutocomplete } from './components/autocomplete';
 
 export * from './components/autocomplete';
 
 /**
  * Register the <location-autocomplete> custom element.
+ * Safe to call multiple times.
  */
 export function register() {
     if (typeof window !== 'undefined' && !customElements.get('location-autocomplete')) {
-        const { LocationAutocomplete } = require('./components/autocomplete');
         customElements.define('location-autocomplete', LocationAutocomplete);
     }
 }

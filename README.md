@@ -92,6 +92,32 @@ const route = await sdk.directions([
 // Returns DirectionsResult
 ```
 
+## Usage in React
+
+### 1. Register the component
+In your `main.tsx` or entry point:
+```tsx
+import { register } from '@octacondeveloper/locationiq';
+register();
+```
+
+### 2. Use in a Component
+```tsx
+import { useEffect, useRef } from 'react';
+
+function Search() {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const handleSelect = (e) => console.log(e.detail);
+    ref.current?.addEventListener('location-select', handleSelect);
+    return () => ref.current?.removeEventListener('location-select', handleSelect);
+  }, []);
+
+  return <location-autocomplete ref={ref} token="YOUR_TOKEN" />;
+}
+```
+
 ## API Reference
 
 ### `LocationIQSDK`
