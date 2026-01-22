@@ -25,8 +25,10 @@ export const AutocompleteExample: React.FC = () => {
       />
       {selected && (
         <div>
-          <p>Selected: {selected.address}</p>
-          <p>Coordinates: {selected.lat}, {selected.lon}</p>
+          <p>Selected: {selected?.address || 'N/A'}</p>
+          <p>Coordinates: {selected?.lat}, {selected?.lon}</p>
+          <p>State: {selected?.state || 'N/A'}</p>
+          <p>Country: {selected?.country || 'N/A'}</p>
         </div>
       )}
     </div>

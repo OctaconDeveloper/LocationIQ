@@ -59,18 +59,21 @@ export const AddressAutocomplete: React.FC<AutocompleteComponentProps> = ({
 
       {showResults && results.length > 0 && (
         <ul className="suggestions-list">
-          {results.slice(0, limit).map((result, index) => (
-            <li
-              key={`${result.osm_id || index}`}
-              onClick={() => handleSelectResult(result)}
-              className="suggestion-item"
-            >
-              <div className="suggestion-address">{result.address}</div>
-              <div className="suggestion-coords">
-                {result.lat}, {result.lon}
-              </div>
-            </li>
-          ))}
+          {results.slice(0, limit).map((result, index) => {
+            if (!result || !result.address) return null;
+            return (
+              <li
+                key={`${result.osm_id || index}`}
+                onClick={() => handleSelectResult(result)}
+                className="suggestion-item"
+              >
+                <div className="suggestion-address">{String(result.address)}</div>
+                <div className="suggestion-coords">
+                  {String(result.lat)}, {String(result.lon)}
+                </div>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

@@ -1,6 +1,6 @@
 {
   "name": "@octacondeveloper/locationiq-react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A comprehensive React component package for LocationIQ APIs",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
