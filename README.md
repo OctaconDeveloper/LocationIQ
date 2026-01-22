@@ -1,73 +1,109 @@
-# React + TypeScript + Vite
+# @octacon/locationiq
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A premium LocationIQ Places API integration for React and core TypeScript. This package provides a framework-agnostic core SDK and a polished React autocomplete component with glassmorphism and animations.
 
-Currently, two official plugins are available:
+[![npm version](https://img.shields.io/badge/npm-1.0.0-blue.svg)](https://www.npmjs.com/package/@octacon/locationiq)
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- 🌍 **Core SDK**: Framework-agnostic TypeScript class for Forward Geocoding, Reverse Geocoding, Autocomplete, and Directions.
+- 🔍 **Autocomplete**: Premium React input component with real-time suggestions and debounced searching.
+- 📍 **Reverse Geocoding**: Convert coordinates to human-readable addresses (includes "Current Location" support).
+- 🛣️ **Directions**: Calculate routes and fetch step-by-step instructions.
+- ✨ **Rich UI**: Built-in support for glassmorphism, dark mode, and smooth transitions using `framer-motion`.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Installation
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install @octacon/locationiq axios lucide-react framer-motion
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+> [!NOTE]
+> `lucide-react` and `framer-motion` are peer dependencies required for the React components. `axios` is a direct dependency.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Quick Start
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 1. Get your API Key
+Register at [LocationIQ](https://locationiq.com/) to get your free API key (Public Token).
+
+### 2. Usage in React
+
+The `LocationInput` component provides a search box with built-in autocomplete logic.
+
+```tsx
+import { LocationInput, LocationIQSDK } from '@octacon/locationiq';
+import '@octacon/locationiq/dist/style.css'; // Optional: import default styles
+
+const sdk = new LocationIQSDK('YOUR_LOCATIONIQ_API_KEY');
+
+function App() {
+  const handleSelect = (place) => {
+    console.log('Selected place:', place);
+  };
+
+  return (
+    <div className="container">
+      <h1>Search for a Place</h1>
+      <LocationInput 
+        sdk={sdk} 
+        onSelect={handleSelect} 
+        placeholder="Type an address..." 
+      />
+    </div>
+  );
+}
 ```
+
+### 3. Usage in any JavaScript/TypeScript environment (Vue, Angular, Node.js)
+
+You can use the `LocationIQSDK` class independently of React.
+
+```typescript
+import { LocationIQSDK } from '@octacon/locationiq';
+
+const sdk = new LocationIQSDK('YOUR_LOCATIONIQ_API_KEY');
+
+// Autocomplete suggestions
+const suggestions = await sdk.autocomplete('Empire State');
+
+// Forward Geocoding
+const locations = await sdk.forwardGeocoding('1600 Amphitheatre Parkway, Mountain View, CA');
+
+// Reverse Geocoding
+const address = await sdk.reverseGeocoding(40.7484, -73.9857);
+
+// Directions
+const route = await sdk.directions([
+  [-73.9857, 40.7484], // [lon, lat] - Origin
+  [-74.0060, 40.7128]  // [lon, lat] - Destination
+]);
+```
+
+## API Reference
+
+### `LocationIQSDK`
+
+| Method | Description | Parameters |
+| :--- | :--- | :--- |
+| `autocomplete(query)` | Get search suggestions | `query: string` |
+| `forwardGeocoding(query)` | Convert address to GPS | `query: string` |
+| `reverseGeocoding(lat, lon)`| Convert GPS to address | `lat: number, lon: number` |
+| `directions(coords)` | Get route between points | `coords: [number, number][]` |
+
+### `LocationInput` (React)
+
+| Prop | Description | Type |
+| :--- | :--- | :--- |
+| `sdk` | Instance of `LocationIQSDK` | `LocationIQSDK` |
+| `onSelect` | Callback on selection | `(result) => void` |
+| `placeholder`| Input placeholder | `string` (optional) |
+
+## Dependencies
+
+- **Direct**: `axios`
+- **Peer**: `react`, `react-dom`, `framer-motion`, `lucide-react`
+
+## License
+
+MIT © [OctaconDeveloper](https://github.com/OctaconDeveloper)
