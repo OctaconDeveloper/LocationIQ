@@ -1,8 +1,8 @@
-# @octacon/locationiq
+# @octacondeveloper/locationiq
 
 A premium LocationIQ Places API integration for React and core TypeScript. This package provides a framework-agnostic core SDK and a polished React autocomplete component with glassmorphism and animations.
 
-[![npm version](https://img.shields.io/badge/npm-1.0.0-blue.svg)](https://www.npmjs.com/package/@octacon/locationiq)
+[![npm version](https://img.shields.io/badge/npm-1.0.0-blue.svg)](https://www.npmjs.com/package/@octacondeveloper/locationiq)
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 ## Features
@@ -16,7 +16,7 @@ A premium LocationIQ Places API integration for React and core TypeScript. This 
 ## Installation
 
 ```bash
-npm install @octacon/locationiq axios lucide-react framer-motion
+npm install @octacondeveloper/locationiq axios lucide-react framer-motion
 ```
 
 > [!NOTE]
@@ -32,8 +32,8 @@ Register at [LocationIQ](https://locationiq.com/) to get your free API key (Publ
 The `LocationInput` component provides a search box with built-in autocomplete logic.
 
 ```tsx
-import { LocationInput, LocationIQSDK } from '@octacon/locationiq';
-import '@octacon/locationiq/dist/locationiq.css'; // Optional: import default styles
+import { LocationInput, LocationIQSDK } from '@octacondeveloper/locationiq';
+import '@octacondeveloper/locationiq/dist/locationiq.css'; // Optional: import default styles
 
 // Initialize the SDK
 const sdk = new LocationIQSDK('YOUR_LOCATIONIQ_API_KEY');
@@ -61,7 +61,7 @@ function App() {
 You can use the `LocationIQSDK` class independently of any UI framework.
 
 ```typescript
-import { LocationIQSDK } from '@octacon/locationiq';
+import { LocationIQSDK } from '@octacondeveloper/locationiq';
 
 const sdk = new LocationIQSDK('YOUR_LOCATIONIQ_API_KEY');
 

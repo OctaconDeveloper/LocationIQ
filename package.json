@@ -1,5 +1,5 @@
 {
-  "name": "@octacon/locationiq",
+  "name": "@octacondeveloper/locationiq",
   "version": "1.0.0",
   "description": "Premium LocationIQ Places API integration for React and core TypeScript",
   "type": "module",
