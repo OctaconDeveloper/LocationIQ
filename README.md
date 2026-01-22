@@ -1,84 +1,95 @@
 # @octacondeveloper/locationiq
 
-A premium LocationIQ Places API integration for React and core TypeScript. This package provides a framework-agnostic core SDK and a polished React autocomplete component with glassmorphism and animations.
+A pure, lightweight, and framework-agnostic LocationIQ Places API client. This package is written in TypeScript and provides seamless integration for Forward Geocoding, Reverse Geocoding, Autocomplete, and Directions.
 
-[![npm version](https://img.shields.io/badge/npm-1.0.0-blue.svg)](https://www.npmjs.com/package/@octacondeveloper/locationiq)
+[![npm version](https://img.shields.io/badge/npm-3.0.0-blue.svg)](https://www.npmjs.com/package/@octacondeveloper/locationiq)
 [![license](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 ## Features
 
-- 🌍 **Core SDK**: Framework-agnostic TypeScript class for Forward Geocoding, Reverse Geocoding, Autocomplete, and Directions.
-- 🔍 **Autocomplete**: Premium React input component with real-time suggestions and debounced searching.
-- 📍 **Reverse Geocoding**: Convert coordinates to human-readable addresses (includes "Current Location" support).
-- 🛣️ **Directions**: Calculate routes and fetch step-by-step instructions.
-- ✨ **Rich UI**: Built-in support for glassmorphism, dark mode, and smooth transitions using `framer-motion`.
+- 🌍 **Pure TypeScript**: Zero dependencies on React, Vue, or Angular. Works everywhere.
+- 🚀 **Small & Fast**: Only depends on `axios`.
+- 🔍 **Autocomplete**: High-performance suggestions for search-as-you-type interfaces.
+- 📍 **Geocoding**: Precise Forward and Reverse geocoding.
+- 🛣️ **Directions**: Route calculation with step-by-step instructions.
 
 ## Installation
 
 ```bash
-npm install @octacondeveloper/locationiq axios lucide-react framer-motion
+npm install @octacondeveloper/locationiq
 ```
 
-> [!NOTE]
-> `lucide-react` and `framer-motion` are peer dependencies required for the React components. `axios` is a direct dependency.
+## System Requirements
 
-## Quick Start
+- **Node.js**: v24.0.0 or higher is recommended for development.
 
-### 1. Get your API Key
-Register at [LocationIQ](https://locationiq.com/) to get your free API key (Public Token).
+## Usage
 
-### 2. Usage in React
+### Usage (Web Component - Recommended for UI)
 
-The `LocationInput` component provides a search box with built-in autocomplete logic.
+The package includes a framework-agnostic `<location-autocomplete>` custom element.
 
-```tsx
-import { LocationInput, LocationIQSDK } from '@octacondeveloper/locationiq';
-import '@octacondeveloper/locationiq/dist/locationiq.css'; // Optional: import default styles
+```html
+<!-- 1. HTML -->
+<location-autocomplete id="search" token="YOUR_API_KEY" placeholder="Search for a place..."></location-autocomplete>
 
-// Initialize the SDK
-const sdk = new LocationIQSDK('YOUR_LOCATIONIQ_API_KEY');
+<!-- 2. JavaScript -->
+<script type="module">
+  import { register } from '@octacondeveloper/locationiq';
+  register(); // Initialize the custom element
 
-function App() {
-  const handleSelect = (place) => {
-    console.log('Selected place:', place);
-  };
+  const el = document.getElementById('search');
+  el.addEventListener('location-select', (e) => {
+    console.log('Selected location:', e.detail);
+  });
+</script>
+```
 
-  return (
-    <div className="container">
-      <h1>Search for a Place</h1>
-      <LocationInput 
-        sdk={sdk} 
-        onSelect={handleSelect} 
-        placeholder="Type an address..." 
-      />
-    </div>
-  );
+#### Customizing Styles
+You can style the component using CSS variables:
+```css
+location-autocomplete {
+  --liq-primary-color: #4f46e5;
+  --liq-border-radius: 4px;
+  --liq-bg: #f9fafb;
 }
 ```
 
-### 3. Usage in any environment (Vue, Angular, Node.js)
+### Usage (Pure SDK)
 
-You can use the `LocationIQSDK` class independently of any UI framework.
+#### Initialize the SDK
 
 ```typescript
 import { LocationIQSDK } from '@octacondeveloper/locationiq';
 
 const sdk = new LocationIQSDK('YOUR_LOCATIONIQ_API_KEY');
+```
 
-// Autocomplete suggestions
-const suggestions = await sdk.autocomplete('Empire State');
+#### Autocomplete suggestions
+```typescript
+const suggestions = await sdk.autocomplete('Empire State Building');
+// Returns AutocompleteResult[]
+```
 
-// Forward Geocoding
+### Forward Geocoding
+```typescript
 const locations = await sdk.forwardGeocoding('1600 Amphitheatre Parkway, Mountain View, CA');
+// Returns LocationIQResult[]
+```
 
-// Reverse Geocoding
+### Reverse Geocoding
+```typescript
 const address = await sdk.reverseGeocoding(40.7484, -73.9857);
+// Returns LocationIQResult
+```
 
-// Directions
+### Directions
+```typescript
 const route = await sdk.directions([
   [-73.9857, 40.7484], // [lon, lat] - Origin
   [-74.0060, 40.7128]  // [lon, lat] - Destination
 ]);
+// Returns DirectionsResult
 ```
 
 ## API Reference
@@ -91,21 +102,6 @@ const route = await sdk.directions([
 | `forwardGeocoding(query)` | Convert address to GPS | `query: string` |
 | `reverseGeocoding(lat, lon)`| Convert GPS to address | `lat: number, lon: number` |
 | `directions(coords)` | Get route between points | `coords: [number, number][]` |
-
-### `LocationInput` (React)
-
-| Prop | Description | Type |
-| :--- | :--- | :--- |
-| `sdk` | Instance of `LocationIQSDK` | `LocationIQSDK` |
-| `onSelect` | Callback on selection | `(result) => void` |
-| `placeholder`| Input placeholder | `string` (optional) |
-
-## Peer Dependencies
-
-To keep the package lightweight, the following are required as peer dependencies in your project:
-- `react` & `react-dom` (>= 18.0.0)
-- `framer-motion` (>= 12.0.0)
-- `lucide-react` (>= 0.400.0)
 
 ## License
 
